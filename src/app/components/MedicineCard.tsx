@@ -1,27 +1,41 @@
-interface Medicine {
-  id: string;
-  name: string;
-  price: number;
-  image?: string;
-}
+import React from "react";
+import { Medicine } from "../types/medicine";
 
 interface Props {
   medicine: Medicine;
+  addToCart?: (medicine: Medicine) => void; // ✅ addToCart optional
 }
 
-const MedicineCard = ({ medicine }: Props) => {
+const MedicineCard: React.FC<Props> = ({ medicine, addToCart }) => {
   return (
-    <div className="bg-white rounded-2xl shadow-md hover:shadow-xl transition transform hover:-translate-y-1 p-6 flex flex-col items-center">
-      <div className="h-32 w-32 bg-gray-100 rounded-xl mb-4 flex items-center justify-center text-gray-400">
-        {medicine.image ? <img src={medicine.image} alt={medicine.name} className="h-full w-full object-cover rounded-xl" /> : "Image"}
-      </div>
-      <h3 className="font-semibold text-lg mb-2 text-gray-800">{medicine.name}</h3>
-      <p className="text-blue-600 font-bold mb-4">{medicine.price} BDT</p>
-      <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition">
-        Add to Cart
-      </button>
+    <div className="border rounded-lg shadow-md hover:shadow-xl transform hover:scale-105 transition-all duration-300 p-4 bg-white">
+      {/* Image */}
+      <img
+        src={medicine.image || "/placeholder.png"}
+        alt={medicine.name}
+        className="w-full h-40 object-cover rounded mb-4"
+      />
+
+      {/* Name */}
+      <h2 className="font-bold text-lg mb-1 text-gray-800">{medicine.name}</h2>
+
+      {/* Price */}
+      <p className="text-green-600 font-semibold mb-1">${medicine.price}</p>
+
+      {/* Category */}
+      <p className="text-gray-500 text-sm">{medicine.category}</p>
+
+      {/* Add to Cart Button */}
+      {addToCart && (
+        <button
+          onClick={() => addToCart(medicine)}
+          className="mt-3 w-full bg-green-600 text-white py-2 rounded hover:bg-green-700 transition"
+        >
+          Add to Cart
+        </button>
+      )}
     </div>
-  )
-}
+  );
+};
 
 export default MedicineCard;
