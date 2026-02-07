@@ -19,15 +19,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <Navbar />
+          {/* CartProvider ke Navbar er upor rakhlam, jate Navbar e cart context use kora jai */}
+          <CartProvider>
+            <Navbar />
 
-          <main className="pt-20 min-h-screen">
-           
-           <CartProvider>{children}</CartProvider>
-       
-          </main>
+            <main className="pt-20 min-h-screen">{children}</main>
 
-          <Footer />
+            <Footer />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
