@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { getAllMedicines } from "@/lib/medicine";
 import { getAllCategories } from "@/lib/category";
 import Link from "next/link";
+import { useCart } from "@/context/CartContext";
 
 type Medicine = {
   id: string;
@@ -18,6 +19,7 @@ type Medicine = {
 type Category = { id: string; name: string };
 
 export default function ShopPage() {
+  const { addToCart } = useCart(); // ✅ Cart context
   const [medicines, setMedicines] = useState<Medicine[]>([]);
   const [filtered, setFiltered] = useState<Medicine[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -26,13 +28,11 @@ export default function ShopPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // Fetch medicines & categories
   useEffect(() => {
     const fetchData = async () => {
       try {
         const medData = await getAllMedicines();
         const catData = await getAllCategories();
-
         setMedicines(medData.data);
         setFiltered(medData.data);
         setCategories(catData.data);
@@ -42,24 +42,19 @@ export default function ShopPage() {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
-  // Filter logic
   useEffect(() => {
     let temp = medicines;
-
     if (selectedCategory) {
       temp = temp.filter((m) => m.category === selectedCategory);
     }
-
     if (search) {
       temp = temp.filter((m) =>
         m.name.toLowerCase().includes(search.toLowerCase())
       );
     }
-
     setFiltered(temp);
   }, [selectedCategory, search, medicines]);
 
@@ -78,9 +73,7 @@ export default function ShopPage() {
     );
 
   return (
-    // ✅ Navbar fixed/sticky থাকলে pt-20 দিতে হবে
     <div className="min-h-screen bg-gray-50 pt-20">
-      
       {/* Header */}
       <div className="bg-gradient-to-r from-blue-600 to-indigo-600 py-14 text-center text-white rounded-b-3xl shadow-md">
         <h1 className="text-4xl font-extrabold tracking-tight">
@@ -93,11 +86,8 @@ export default function ShopPage() {
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 py-10">
-        
         {/* Filter Section */}
         <div className="bg-white shadow-md rounded-2xl p-5 flex flex-col md:flex-row gap-4 md:items-center md:justify-between mb-10">
-          
-          {/* Category Filter */}
           <select
             className="w-full md:w-64 border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-blue-500 outline-none"
             value={selectedCategory}
@@ -111,7 +101,6 @@ export default function ShopPage() {
             ))}
           </select>
 
-          {/* Search Input */}
           <input
             type="text"
             placeholder="🔍 Search medicines..."
@@ -142,27 +131,19 @@ export default function ShopPage() {
 
                 {/* Content */}
                 <div className="p-4 flex flex-col flex-grow">
-                  {/* Category Badge */}
                   {med.category && (
                     <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full w-fit mb-2">
                       {med.category}
                     </span>
                   )}
 
-                  <h3 className="text-lg font-bold text-gray-800">
-                    {med.name}
-                  </h3>
+                  <h3 className="text-lg font-bold text-gray-800">{med.name}</h3>
+                  <p className="text-sm text-gray-500 mb-3">{med.company}</p>
 
-                  <p className="text-sm text-gray-500 mb-3">
-                    {med.company}
-                  </p>
-
-                  {/* Price + Stock */}
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xl font-extrabold text-blue-600">
                       ৳ {med.price}
                     </span>
-
                     {med.stock > 0 ? (
                       <span className="text-xs bg-blue-100 text-blue-700 px-3 py-1 rounded-full">
                         In Stock
@@ -183,8 +164,18 @@ export default function ShopPage() {
                       Details
                     </Link>
 
+                    {/* ✅ Add to Cart Button */}
                     <button
                       disabled={med.stock === 0}
+                      onClick={() =>
+                        addToCart({
+                          id: med.id,
+                          name: med.name,
+                          price: med.price,
+                          quantity: 1,
+                          image: med.image,
+                        })
+                      }
                       className={`w-1/2 py-2 rounded-xl text-white font-semibold transition ${
                         med.stock > 0
                           ? "bg-blue-600 hover:bg-blue-700"
