@@ -30,11 +30,14 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 px-4">
+      
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-transform duration-500 hover:scale-105 animate-fade-in">
+        <h2 className="text-3xl font-bold mb-6 text-center text-green-700 animate-pulse">
+          Register
+        </h2>
 
-        {error && <p className="text-red-500 mb-4">{error}</p>}
+        {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
@@ -42,46 +45,57 @@ export default function RegisterPage() {
             placeholder="Full Name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
           />
           <input
             type="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
           />
           <select
             value={role}
             onChange={(e) => setRole(e.target.value as "CUSTOMER" | "SELLER")}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
           >
             <option value="CUSTOMER">Customer</option>
             <option value="SELLER">Seller</option>
           </select>
+
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition"
+            className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 hover:scale-105 shadow-lg transition transform duration-300"
           >
             {loading ? "Registering..." : `Register as ${role}`}
           </button>
         </form>
 
-        <p className="text-sm mt-4 text-center">
+        <p className="text-sm mt-4 text-center text-gray-600">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href="/login" className="text-green-600 font-medium hover:underline">
             Login
           </a>
         </p>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          0% { opacity: 0; transform: translateY(-20px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+      `}</style>
     </div>
   );
 }

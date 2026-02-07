@@ -34,9 +34,11 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h2 className="text-3xl font-extrabold mb-6 text-center text-gray-800">Login</h2>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-500 via-green-600 to-green-700 px-4">
+      <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-transform duration-500 hover:scale-105 animate-fade-in">
+        <h2 className="text-3xl font-extrabold mb-6 text-center text-green-700 animate-pulse">
+          Login
+        </h2>
 
         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
@@ -46,31 +48,41 @@ export default function LoginPage() {
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300"
           />
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-300"
           />
           <button
             type="submit"
             disabled={loading}
-            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-600 transition font-semibold"
+            className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 hover:scale-105 shadow-lg transition transform duration-300"
           >
             {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 
-        <p className="text-sm mt-4 text-center">
+        <p className="text-sm mt-4 text-center text-gray-600">
           Don't have an account?{" "}
-          <a href="/register" className="text-blue-500 hover:underline">
+          <a href="/register" className="text-green-600 font-medium hover:underline">
             Register
           </a>
         </p>
       </div>
+
+      <style jsx>{`
+        @keyframes fade-in {
+          0% { opacity: 0; transform: translateY(-20px); }
+          100% { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+          animation: fade-in 0.8s ease-out;
+        }
+      `}</style>
     </div>
   );
 }
