@@ -15,15 +15,17 @@ export default function RegisterPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !password) return setError("Please fill in all fields.");
+    if (!name || !email || !password) return setError("All fields are required");
+
     setLoading(true);
     setError("");
+
     try {
       await registerUser({ name, email, password, role });
-      alert("Registration Successful!");
+      alert("Registration successful!");
       router.push("/login");
     } catch (err: any) {
-      setError(err.message || "Something went wrong.");
+      setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
@@ -31,71 +33,28 @@ export default function RegisterPage() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-green-400 to-blue-500 px-4">
-      
       <div className="bg-white p-8 rounded-2xl shadow-2xl w-full max-w-md transform transition-transform duration-500 hover:scale-105 animate-fade-in">
-        <h2 className="text-3xl font-bold mb-6 text-center text-green-700 animate-pulse">
-          Register
-        </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center text-green-700 animate-pulse">Register</h2>
 
         {error && <p className="text-red-500 mb-4 text-center">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <input
-            type="text"
-            placeholder="Full Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
-          />
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
-          />
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value as "CUSTOMER" | "SELLER")}
-            className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition duration-300"
-          >
+          <input type="text" placeholder="Full Name" value={name} onChange={(e) => setName(e.target.value)} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" />
+          <input type="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" />
+          <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" />
+          <select value={role} onChange={(e) => setRole(e.target.value as "CUSTOMER" | "SELLER")} className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
             <option value="CUSTOMER">Customer</option>
             <option value="SELLER">Seller</option>
           </select>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 hover:scale-105 shadow-lg transition transform duration-300"
-          >
+          <button type="submit" disabled={loading} className="w-full bg-green-600 text-white p-3 rounded-lg font-semibold hover:bg-green-700 hover:scale-105">
             {loading ? "Registering..." : `Register as ${role}`}
           </button>
         </form>
 
         <p className="text-sm mt-4 text-center text-gray-600">
-          Already have an account?{" "}
-          <a href="/login" className="text-green-600 font-medium hover:underline">
-            Login
-          </a>
+          Already have an account? <a href="/login" className="text-green-600 font-medium hover:underline">Login</a>
         </p>
       </div>
-
-      <style jsx>{`
-        @keyframes fade-in {
-          0% { opacity: 0; transform: translateY(-20px); }
-          100% { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fade-in {
-          animation: fade-in 0.8s ease-out;
-        }
-      `}</style>
     </div>
   );
 }
