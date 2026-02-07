@@ -17,7 +17,7 @@ export default function CheckoutPage() {
       return;
     }
 
-    // ✅ এখানে তুমি API call দিয়ে order create করতে পারো
+
     console.log("Order placed:", { name, address, items: cart });
 
     clearCart();

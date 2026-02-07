@@ -31,3 +31,15 @@ export const getCurrentUser = async () => {
     headers: { Authorization: `Bearer ${token}` },
   });
 };
+export const getProfile = async (token: string) =>
+  apiRequest<{ success: boolean; data: any }>("/profile", {
+    method: "GET",
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+export const updateProfile = async (token: string, payload: { name?: string; email?: string; password?: string }) =>
+  apiRequest<{ success: boolean; message: string; data: any }>("/profile", {
+    method: "PUT",
+    headers: { Authorization: `Bearer ${token}` },
+    body: JSON.stringify(payload),
+  });
