@@ -1,19 +1,21 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+import axios from "axios";
 
-export async function apiRequest(endpoint: string, options: RequestInit = {}) {
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...options.headers,
-    },
-    ...options,
-  });
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
-  const data = await res.json();
+export const apiRequest = async <T>(
+  endpoint: string,
+  config?: any
+): Promise<T> => {
+  try {
+    const res = await axios({
+      url: `${API_URL}${endpoint}`,
+      withCredentials: true,
+      ...config,
+    });
 
-  if (!res.ok) {
-    throw new Error(data.message || "Something went wrong");
+    return res.data as T;
+  } catch (err: any) {
+    console.error("API Error:", err.response?.data || err.message);
+    throw err;
   }
-
-  return data;
-}
+};

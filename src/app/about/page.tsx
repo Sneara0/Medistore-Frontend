@@ -6,7 +6,7 @@ export default function AboutPage() {
 
       {/* Hero Section */}
       <section className="relative bg-gradient-to-r from-green-600 to-green-800 text-white py-32 px-6 text-center overflow-hidden">
-        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 drop-shadow-lg">
+        <h1 className="text-2xl md:text-2xl font-extrabold mb-6 drop-shadow-lg">
           About MediStore
         </h1>
         <p className="text-lg md:text-2xl mb-10 drop-shadow-md max-w-3xl mx-auto">

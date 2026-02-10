@@ -1,5 +1,6 @@
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
+import { CartProvider } from "@/context/CartContext";
 import "./globals.css";
 
 import { AuthProvider } from "@/context/AuthContext";
@@ -18,13 +19,14 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <AuthProvider>
-          <Navbar />
+          {/* CartProvider ke Navbar er upor rakhlam, jate Navbar e cart context use kora jai */}
+          <CartProvider>
+            <Navbar />
 
-          <main className="pt-20 min-h-screen">
-            {children}
-          </main>
+            <main className="pt-20 min-h-screen">{children}</main>
 
-          <Footer />
+            <Footer />
+          </CartProvider>
         </AuthProvider>
       </body>
     </html>
