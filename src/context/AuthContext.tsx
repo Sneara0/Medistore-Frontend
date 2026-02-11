@@ -1,8 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { User } from "@/lib/auth";
-import { getCurrentUser } from "@/lib/auth";
+import { User, getCurrentUser } from "@/lib/auth";
 
 type AuthContextType = {
   user: User | null;
@@ -19,18 +18,19 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Load user from localStorage or API on page reload
   useEffect(() => {
     const loadUser = async () => {
-      const savedToken = localStorage.getItem("token");
-      if (savedToken) {
-        setToken(savedToken);
-        try {
-          const res = await getCurrentUser();
-          setUser(res.data);
-        } catch (err) {
-          console.error("Failed to fetch user", err);
-          logout();
+      if (typeof window !== "undefined") {
+        const savedToken = localStorage.getItem("token");
+        if (savedToken) {
+          setToken(savedToken);
+          try {
+            const res = await getCurrentUser();
+            if (res) setUser(res.data);
+          } catch (err) {
+            console.error("Auth failed", err);
+            logout();
+          }
         }
       }
       setLoading(false);
