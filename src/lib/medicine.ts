@@ -7,6 +7,7 @@ export type Medicine = {
   price: number;
   stock: number;
   image: string;
+  company: string; // ✅ এটি যোগ করা হয়েছে যাতে "Property 'company' does not exist" এররটি না আসে
   category: { id: string; name: string };
   seller: { id: string; name: string };
   reviews: { id: string; rating: number; comment?: string }[];

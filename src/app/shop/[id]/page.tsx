@@ -59,11 +59,15 @@ export default function MedicineDetailPage() {
           className="w-full md:w-1/2 h-80 object-cover rounded-xl"
         />
         <div className="flex flex-col flex-grow">
+          {/* এখানে পরিবর্তন করা হয়েছে: category.name ব্যবহার করা হয়েছে */}
           {medicine.category && (
             <span className="text-xs bg-green-100 text-green-700 px-3 py-1 rounded-full w-fit mb-2">
-              {medicine.category}
+              {typeof medicine.category === "object" 
+                ? medicine.category.name 
+                : medicine.category}
             </span>
           )}
+          
           <h1 className="text-3xl font-bold text-gray-800">{medicine.name}</h1>
           <p className="text-gray-500 mt-1">{medicine.company}</p>
           <p className="text-xl font-bold text-green-600 mt-4">
