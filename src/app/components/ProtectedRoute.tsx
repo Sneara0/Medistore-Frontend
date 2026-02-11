@@ -15,8 +15,8 @@ export default function ProtectedRoute({ children, roles }: ProtectedRouteProps)
 
   useEffect(() => {
     if (!loading) {
-      if (!user) router.push("/login"); // Not logged in
-      else if (roles && !roles.includes(user.role)) router.push("/"); // role mismatch
+      if (!user) router.push("/login"); 
+      else if (roles && !roles.includes(user.role)) router.push("/"); 
     }
   }, [user, loading, roles, router]);
 
