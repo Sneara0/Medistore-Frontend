@@ -1,6 +1,6 @@
 import { apiRequest } from "./api";
 
-export type Role = "CUSTOMER" | "SELLER" | "ADMIN";
+export type Role = "CUSTOMER" | "SELLER" | "ADMIN" | "SUPER_ADMIN";
 export type User = { id: string; name: string; email: string; role: Role; };
 
 export const registerUser = (payload: any) => 
