@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏥 MediStore — Multi-Role Pharmacy Management System
 
-## Getting Started
+> A secure and efficient platform designed to manage pharmacy operations, inventory, and sales with dedicated roles for Customers, Sellers, and Administrators.
 
-First, run the development server:
+---
+
+## 📌 Problem Statement
+Traditional pharmacy management often struggles with inventory tracking, unauthorized access to sensitive data, and a lack of clear distinction between user roles. MediStore solves this by providing a structured environment for managing medicines, orders, and users.
+
+## 💡 Solution Overview
+Built with **Next.js** and **Prisma**, MediStore implements a robust **Role-Based Access Control (RBAC)** system. It ensures that customers can browse and buy, sellers can manage stock, and admins can oversee the entire operation through a centralized dashboard.
+
+## 🛠️ Tech Stack
+
+| Category | Tools |
+| :--- | :--- |
+| **Framework** | `Next.js (App Router)` • `TypeScript` |
+| **Database** | `PostgreSQL` • `Prisma ORM` |
+| **Styling** | `Tailwind CSS` • `Shadcn UI` |
+| **Auth** | `Next-Auth` / `JWT` |
+
+## ✨ Key Features
+- **🔐 Multi-Role Access (RBAC):** Distinct dashboards for Customer, Seller, and Admin.
+- **📦 Inventory Management:** Sellers can add, update, and track medicine stock levels.
+- **🛒 Seamless Checkout:** Integrated cart and order processing for customers.
+- **📊 Admin Insights:** Comprehensive oversight of users, medicines, and transaction history.
+- **🚀 Server-Side Rendering:** Optimized performance using Next.js Server Components.
+
+## 📸 Project Preview
+<p align="center">
+  <img src="আপনার-ছবির-লিঙ্ক-এখানে" width="90%" alt="MediStore Preview" />
+</p>
+
+## Installation ⚙️
+
+Clone the repo and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+git clone [https://github.com/Sneara0/Medistore-Frontend.git](https://github.com/Sneara0/Medistore-Frontend.git)
+cd Medistore-Frontend
+npm install
+DATABASE_URL="your_postgresql_url"
+NEXTAUTH_SECRET="your_secret_key"
+NEXT_PUBLIC_API_URL="your_backend_api_url"
